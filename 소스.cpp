@@ -1,28 +1,20 @@
 #include<stdio.h>
-#include<conio.h>
-#include<stdlib.h>
-int main() {
-	int arr[10] = { 0 };
-	int s=0;
-	int temp=0;
-	for (int i = 0; i < 10; i++) {
-		arr[i] = _getche() - 48;
-		s++;
-		if (arr[i] == -35) {
-			break;
-		}
-	}
-	for (int j = 0; j < (s-2); j++) {
-		for (int k = j + 1; k < s-1; k++) {
-			if(arr[j] < arr[k]) {
-				temp = arr[j];
-				arr[j] = arr[k];
-				arr[k] = temp;
+
+int main(){
+	int i=0, j=0;
+	for (i = 0; i < 7; i++) {
+		for (j = 0; j < 7; j++) {
+			if (i == j) {
+				printf("*");
+			}
+			else if (i + j == 6) {
+				printf("*");
+			}
+			else {
+				printf(" ");
 			}
 		}
-	}
-	for (int t = 0; t < s-1; t++) {
-			printf("%d", arr[t]);
+		printf("\n");
 	}
 	return 0;
 }
