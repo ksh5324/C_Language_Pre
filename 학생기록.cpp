@@ -231,6 +231,8 @@ void grade() {
 }
 
 void Sort() {
+	printf("정렬\n");
+	Sleep(500);
 	printf("정렬에 기준\n1.학번 2.이름//영어만 적용 3.알고리즘 성적\n");
 	int c;
 	c = getch() - 48;
@@ -241,13 +243,41 @@ void Sort() {
 	}
 }
 
+void Change() {
+	printf("변경\n");
+	printf("변경시킬 사람의 학번: ");
+	int c;
+	scanf("%d", &c);
+	int i;
+	for (i = 0; c != a[i].student_num; i++) {
+	}
+	printf("학번: ");
+	scanf_s("%d", &a[i].student_num);
+
+	printf("이름: ");
+	scanf("%s", a[i].name);
+	fflush(stdout);
+	printf("주소: ");
+	scanf("%s", a[i].address);
+
+	printf("전화번호: ");
+	scanf_s("%d", &a[i].Phone_num);
+
+	printf("국어점수: ");
+	scanf_s("%d", &a[i].kor);
+
+	printf("알고리즘 점수: ");
+	scanf_s("%d", &a[i].str);
+	printf("\n\n\n");
+}
+
 int main() {
 	int choose=0; 
 	printf("* 이 프로그램에서 선택할시 약 0.5초 가략에 기다림이 있습니다 *\n");
 	system("pause");
 	system("cls");
 	while (1) {
-		printf("1.생성  2.검색  3.삭제  4.모두 출력  5.정렬\n");
+		printf("1.생성  2.검색  3.삭제  4.모두 출력  5.정렬  6.변경  7.화면삭제\n");
 		choose = getch() - 48;
 		switch (choose)
 		{
@@ -256,7 +286,8 @@ int main() {
 		case 3: delete_(); break;
 		case 4: print(); break;
 		case 5: Sort(); break;
-		//case 6: Change(); break;
+		case 6: Change(); break;
+		case 7: system("cls"); break;
 		}
 	}
 	return 0;
