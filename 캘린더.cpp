@@ -1,3 +1,4 @@
+
 #include<stdio.h>
 #include<Windows.h>
 char arr[12][31] = {
@@ -110,21 +111,21 @@ int main() {
         if (n == 1 || n == 2 || n == 4) {
             printf("월과 일을 띄어 쓰기로 구분해주세요\n[ex)4월 5 -> 4 5]\n");
             scanf("%d %d", &month, &date_);
-            if (arr[month][date_] == 0) {
+            if (arr[month-1][date_-1] == 0) {
                 printf("없는 날짜입니다\n");
             }
         }
         else if (n == 3) {
             printf("숫자(월)만 입력해주세요\n[ex)4월 -> 4]\n");
             scanf("%d", &month);
-            if (month > 12) {
+            if (month-1 > 12) {
                 printf("없는 월입니다\n");
             }
         }
         switch (n) {
         case 1: plus(month, date_); break;
-        case 2: del(month, date_);
-        case 3: print_month(month);
+        case 2: del(month, date_); break;
+        case 3: print_month(month); break;
         case 4: print_date(month, date_); break;
         case 5: date_show(); break;
         default: system("cls");
@@ -151,8 +152,8 @@ void print_month(int month) {
         if (a[month - 1][i].cnt == 0) {
             continue;
         }
-        printf("[%d일]\n", i);
-        print_date(month, i);
+        printf("[%d일]\n", i+1);
+        print_date(month, i+1);
         printf("----------------------\n");
     }
 }
@@ -168,12 +169,12 @@ void del(int month, int date_) {
         *a[month - 1][date_ - 1].todo[i] = *a[month - 1][date_ - 1].todo[i + 1];
         *a[month - 1][date_ - 1].todo[i + 1] = *temp;
     }
-    a[month][date_].cnt--;
+    a[month-1][date_-1].cnt--;
 }
 
 void date_show() {
     printf("해야할일이 있는 날짜들은 빨간색으로 보여집니다.\n");
-    int count = 0;
+    int count = 2;
     for (int i = 0; i < 12; i++) {
         printf("[%d월]\n", i + 1);
         for (int k = 0; k < count; k++) {
