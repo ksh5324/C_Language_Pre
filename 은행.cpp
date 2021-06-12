@@ -50,8 +50,10 @@ void makeBankID() { // 은행 아이디 만들기
 	printf("----------은행 아이디 만들기----------\n");
 	printf("사용자 이름: ");
 	scanf("%s", bank1.people[bank1.j].userName);
+	fprintf(fpp[bank1.i], "%s\n", bank1.people[bank1.j].userName);
 	printf("Id: ");
 	scanf("%s", bank1.people[bank1.j].id);
+	fprintf(fpp[bank1.i], "%s\n", bank1.people[bank1.j].id);
 re:
 	printf("password: ");
 	for (int k = 0;; k++) {
@@ -76,11 +78,14 @@ re:
 		printf("틀렸습니다\n비밀번호를 다시 설정해주세요\n");
 		goto re;
 	}
+	fprintf(fpp[bank1.i], "%s", bank1.people[bank1.j].password);
 	printf("\n전화번호: ");
 	scanf("%d", &bank1.people[bank1.j].phoneNum);
+	fprintf(fpp[bank1.i], "%d\n", bank1.people[bank1.j].phoneNum);
 	printf("주소: ");
 	scanf("%s", bank1.people[bank1.j].addresss);
-	bank1.i++;
+	fprintf(fpp[bank1.i], "%s\n", bank1.people[bank1.j].addresss);
+	bank1.j++;
 }
 
 
@@ -94,7 +99,7 @@ int makeBankBook() { // 통장 생성
 	char pass[30] = { 0, };
 	printf("아이디: ");
 	scanf("%s", userId);
-	for (searchBankBook = 0; strcmp(bank1.people[bank1.j].id, userId) != 0 && searchBankBook <= bank1.j; searchBankBook++);
+	for (searchBankBook = 0; strcmp(bank1.people[searchBankBook].id, userId) != 0 && searchBankBook <= bank1.j; searchBankBook++);
 	if (searchBankBook <= bank1.j) {
 		printf("비밀번호: ");
 		for (int k = 0;; k++) {
@@ -105,7 +110,7 @@ int makeBankBook() { // 통장 생성
 			printf("*");
 		}
 		printf("\n");
-		for (searchBankBookPassword = 0; strcmp(bank1.people[bank1.j].id, userId) != 0 && searchBankBookPassword <= bank1.j; searchBankBookPassword++);
+		for (searchBankBookPassword = 0; strcmp(bank1.people[searchBankBookPassword].id, userId) != 0 && searchBankBookPassword <= bank1.j; searchBankBookPassword++);
 		if (searchBankBookPassword <= bank1.j) {
 			printf("%s님 반갑습니다\n", bank1.people[bank1.j].userName);
 		}
@@ -318,9 +323,12 @@ int main() {
 	makeFile();
 	srand(time(NULL));
 	makeBankID();
+	makeBankID();
 	makeBankBook();
 	putMoney();
 	checkMoney();
+
+
 
 	return 0;
 }
