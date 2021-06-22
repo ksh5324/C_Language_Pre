@@ -16,7 +16,7 @@ struct bankBook
 	char password[30];
 	int money;
 	FILE* fp;
-};
+}; // 통장을 위한 구조체
 
 struct people
 {
@@ -25,14 +25,16 @@ struct people
 	char password[30];
 	int phoneNum;
 	char addresss[50];
-};
+}; // 사람들에 은행 아이디 및 기본정보를 위한 구조체
 
 typedef struct bank
 {
 	struct bankBook bank[100];
 	struct people people[10];
 	int i, j;
-}bank;
+}bank; // 은행 자체를 말하는 구조체
+
+// 기능들 //
 
 // 은행 아이디 만들기 (O)
 // 통장 만들기 (0)
@@ -44,15 +46,15 @@ typedef struct bank
 // 통장 없애기
 // 기록 확인 (X)
 
-bank bank1;
+bank bank1; // 은행 생성
 
 void makeBankID() { // 은행 아이디 만들기
 	printf("----------은행 아이디 만들기----------\n");
 	printf("사용자 이름: ");
-	scanf("%s", bank1.people[bank1.j].userName);
+	scanf("%s", bank1.people[bank1.j].userName); // 사용자 이름 입력
 	//fprintf(fpp[bank1.i], "%s\n", bank1.people[bank1.j].userName);
 	printf("Id: ");
-	scanf("%s", bank1.people[bank1.j].id);
+	scanf("%s", bank1.people[bank1.j].id); // 사용자 아이디 입력
 	//fprintf(fpp[bank1.i], "%s\n", bank1.people[bank1.j].id);
 re:
 	printf("password: ");
@@ -62,7 +64,7 @@ re:
 			break;
 		}
 		printf("*");
-	}
+	} // 사용자 비밀번호를 입력 받는 코드 입력시에 *로 출력되기 위한 코드
 	printf("\n");
 	char bankEx[30] = { 0, };
 	printf("한번 더 입력해 주세요: ");
@@ -72,18 +74,20 @@ re:
 			break;
 		}
 		printf("*");
-	}
+	} // 비밀번호 한번더 입력
+
 	if (strcmp(bank1.people[bank1.j].password, bankEx) != 0) {
 		printf("\n");
 		printf("틀렸습니다\n비밀번호를 다시 설정해주세요\n");
 		goto re;
-	}
+	} // 틀렸을 시 다시 비밀번호 입력창으로 돌아가기
+
 	//fprintf(fpp[bank1.i], "%s", bank1.people[bank1.j].password);
 	printf("\n전화번호: ");
-	scanf("%d", &bank1.people[bank1.j].phoneNum);
+	scanf("%d", &bank1.people[bank1.j].phoneNum); // 전화번호 입력
 	//fprintf(fpp[bank1.i], "%d\n", bank1.people[bank1.j].phoneNum);
 	printf("주소: ");
-	scanf("%s", bank1.people[bank1.j].addresss);
+	scanf("%s", bank1.people[bank1.j].addresss); // 주소 입력
 	//fprintf(fpp[bank1.i], "%s\n", bank1.people[bank1.j].addresss);
 	bank1.j++;
 }
@@ -98,8 +102,8 @@ int makeBankBook() { // 통장 생성
 	char userId[30] = { 0, };
 	char pass[30] = { 0, };
 	printf("아이디: ");
-	scanf("%s", userId);
-	for (searchBankBook = 0; strcmp(bank1.people[searchBankBook].id, userId) != 0 && searchBankBook <= bank1.j; searchBankBook++);
+	scanf("%s", userId); // 아이디 입력
+	for (searchBankBook = 0; strcmp(bank1.people[searchBankBook].id, userId) != 0 && searchBankBook <= bank1.j; searchBankBook++); // 아이디가 유효한지 확인
 	if (searchBankBook <= bank1.j) {
 		printf("비밀번호: ");
 		for (int k = 0;; k++) {
@@ -108,23 +112,23 @@ int makeBankBook() { // 통장 생성
 				break;
 			}
 			printf("*");
-		}
+		} // 비밀번호 입력
 		printf("\n");
 		if (strcmp(bank1.people[searchBankBook].password, pass) == 0) {
 			printf("%s님 반갑습니다\n", bank1.people[searchBankBook].userName);
-		}
+		} // 일치하면 출력
 		else {
 			return 0;
-		}
+		} // 그렇지 않다면 함수 종료
 	}
 	printf("계좌번호는: ");
 	for (int zz = 0; zz < 10; zz++) {
 		bank1.bank[bank1.i].id[zz] = rand() % 10;
 		printf("%d", bank1.bank[bank1.i].id[zz]);
-	}
+	} // 계좌번호를 랜덤으로 지정해주기
 	printf("\n");
 	printf("통장이름: ");
-	scanf("%s", bank1.bank[bank1.i].Name);
+	scanf("%s", bank1.bank[bank1.i].Name); // 통장이름 설정
 re:
 	printf("비밀번호: ");
 	for (int k = 0;; k++) {
@@ -133,7 +137,8 @@ re:
 			break;
 		}
 		printf("*");
-	}
+	}// 비밀번호 설정
+
 	printf("\n");
 	char bankEx[30] = { 0, };
 	printf("한번 더 입력해 주세요: ");
@@ -166,8 +171,8 @@ int checkMoney() { // 액수 확인
 	char Name[30] = { 0, };
 	int bankBook;
 	printf("아이디: ");
-	scanf("%s", userId);
-	for (searchBankBook = 0; strcmp(bank1.people[searchBankBook].id, userId) != 0 && searchBankBook <= bank1.j; searchBankBook++);
+	scanf("%s", userId); 
+	for (searchBankBook = 0; strcmp(bank1.people[searchBankBook].id, userId) != 0 && searchBankBook <= bank1.j; searchBankBook++); // 아이디 확인
 	if (searchBankBook <= bank1.j) {
 		printf("비밀번호: ");
 		for (int k = 0;; k++) {
@@ -189,9 +194,9 @@ int checkMoney() { // 액수 확인
 	else {
 		printf("없는 아이디입니다\n");
 		return 0;
-	}
+	} // 아이디와 비밀번호 유무 상태 확인
 	printf("통장을 선택해주세요: ");
-	scanf("%s", Name);
+	scanf("%s", Name); // 통장 선택
 	for (bankBook = 0; strcmp(bank1.bank[bankBook].Name, Name) != 0 && bankBook <= bank1.i; bankBook++);
 	if (bankBook <= bank1.i) {
 		printf("비밀번호: ");
@@ -201,11 +206,11 @@ int checkMoney() { // 액수 확인
 				break;
 			}
 			printf("*");
-		}
+		} // 존재하고, 비밀번호와 일치한지 확인
 		if (strcmp(pass2, bank1.bank[bankBook].password) == 0) {
 			printf("\n잔액: ");
 			printf("%d", bank1.bank[bankBook].money);
-		}
+		} // 일치하면 잔액 확인
 		else {
 			printf("비밀번호가 틀렸습니다\n");
 		}
@@ -251,7 +256,7 @@ int putMoney() { // 돈 넣기
 	else {
 		printf("없는 아이디입니다\n");
 		return 0;
-	}
+	} // 아이디 비번 확인
 	printf("통장을 선택해주세요: ");
 	scanf("%s", Name);
 	for (bankBook = 0; strcmp(bank1.bank[bankBook].Name, Name) != 0 && bankBook <= bank1.i; bankBook++);
@@ -332,10 +337,10 @@ int send() {
 			printf("*");
 		}
 		if (strcmp(pass2, bank1.bank[bankBook].password) == 0) {
-			printf("보낼 계좌번호\n");
+			printf("보낼 계좌번호\n"); 
 			int account;
 			int search, p;
-			scanf("%d", &account);
+			scanf("%d", &account); // 계좌번호 입력
 			for (search = 0; search <= bank1.i; search++) {
 				if (bank1.bank[search].id == account) {
 					int put;
@@ -390,10 +395,10 @@ int main() {
 	//makeFile();
 	srand(time(NULL));
 	char i[20] = { 0, };
-	char k[10][20] = {"아이디추가", "통장생성", "돈넣기", "돈보내기", "액수확인"};
+	char k[10][20] = {"아이디추가", "통장생성", "돈넣기", "돈보내기", "액수확인"}; // 기능
 	while (1)
 	{
-		printf("\n\"아이디추가\", \"통장생성\", \"돈넣기\", \"돈보내기\", \"액수확인\"\n");
+		printf("\n\"아이디추가\", \"통장생성\", \"돈넣기\", \"돈보내기\", \"액수확인\"\n"); // 기능 보여주기
 		scanf("%s", i);
 		int p;
 		for (p = 0; p < 10; p++) {
@@ -409,7 +414,7 @@ int main() {
 		case 3: send(); break;
 		case 4: checkMoney(); break;
 		default:
-			exit(1);
+			exit(1); //그외에 다른 값이 입력된다면 종료
 		}
 	}
 	return 0;
